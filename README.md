@@ -64,6 +64,16 @@ RUN set -x \
 
 ***
 
+## sample
+
+	&& sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
+	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
+	
+	code.....
+
+
+	&& apt-get purge -y --auto-remove ca-certificates wget
+
 ## 说明： 
 本包为基础定制包，需要在上面安装应用软件后才可使用。
 
@@ -104,9 +114,14 @@ useradd(选项)(参数)
 	-u<uid>：指定用户id。
 
 
+## 查看Linux版本信息
+1. 查看Linux内核版本命令
+	cat /proc/version
+	uname -a
 
-
-
+2. 查看Linux系统版本的命令
+	lsb_release -a
+	cat /etc/issue
 
 
 
