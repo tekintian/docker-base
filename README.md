@@ -1,6 +1,6 @@
 # Tekin 定制的精简容器基础包
 
-基于官方最新版 debian:jessie 镜像定制
+基于官方最新版 debian:9-slim 镜像定制
 
 定制安装软件如下：
 
