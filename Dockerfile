@@ -37,8 +37,8 @@ RUN set -x \
         && sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
         && apt-get update \
         # && apt-get install -y perl --no-install-recommends \
-        && apt-get install -y wget unzip bzip2 psmisc ca-certificates openssl curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \
-        # && apt-get install -y binutils libreadline6 readline-common \
+        && apt-get install -y wget bzip2 ca-certificates openssl curl psmisc libpcre3 libxml2 libfreetype6 --no-install-recommends \
+        # && apt-get install -y unzip  sendmail binutils libreadline6 readline-common \
         && rm -rf /var/lib/apt/lists/* 
 
 RUN set -x \
