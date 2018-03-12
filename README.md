@@ -44,9 +44,29 @@ RUN set -x \
         && sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
         && apt-get update \
         # && apt-get install -y perl --no-install-recommends \
-        && apt-get install -y wget unzip bzip2 psmisc binutils ca-certificates openssl curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \ 
+        && apt-get install -y wget unzip bzip2 procps psmisc binutils ca-certificates openssl curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \ 
         && rm -rf /var/lib/apt/lists/* 
-        
+
+free top等内核命令安装包   procps 
+free top 命令安装包  apt-get install procps
+
+libgpm2 libncurses5 libncursesw5 libprocps6 libtinfo5 psmisc
+
+
+apt-get install procps
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  libgpm2 libncurses5 libncursesw5 libprocps6 libtinfo5 psmisc
+Suggested packages:
+  gpm
+The following NEW packages will be installed:
+  libgpm2 libncurses5 libprocps6 procps psmisc
+The following packages will be upgraded:
+  libncursesw5 libtinfo5
+
+
 *** 
 ## 查找删除无用文件信息
 	#删除目录 /usr/local/ 下的所有 *-debug  *_embedded 文件
