@@ -94,6 +94,23 @@ The following packages will be upgraded:
 
 	&& apt-get purge -y --auto-remove ca-certificates wget
 
+***
+
+
+ fetchDeps=' \
+        ca-certificates \
+        wget \
+    '; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends $fetchDeps; \
+    rm -rf /var/lib/apt/lists/*; \
+    \
+
+	coding......
+
+    apt-get purge -y --auto-remove $fetchDeps
+
+
 ## 说明： 
 本包为基础定制包，需要在上面安装应用软件后才可使用。
 

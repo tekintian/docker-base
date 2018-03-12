@@ -15,34 +15,35 @@ ENV RUN_USER=www \
 
 WORKDIR /tmp
 
-ADD src/ /tmp/
+# ADD src/ /tmp/
 #安装必备的软件包
 RUN set -x \
         && sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
         && apt-get update \
-        && apt-get install -y wget gnupg dirmngr unzip bzip2 procps psmisc binutils tree ca-certificates openssl  curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \
+        && apt-get install -y wget gnupg dirmngr unzip bzip2 procps psmisc binutils tree dpkg ca-certificates openssl  curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* 
-# KEY服务器不稳定导致编译失败，暂时删除
+# KEY服务器不稳定导致编译失败，暂时删除 GOSU 即可
 # add gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
 RUN set -x \
-        && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-        && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-        && export GNUPGHOME="$(mktemp -d)" \
-        && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-        && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-        && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-        && chmod +x /usr/local/bin/gosu \
-        && gosu nobody true
+      && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+      && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+      && export GNUPGHOME="$(mktemp -d)" \
+      && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+      && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+      && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+      && chmod +x /usr/local/bin/gosu \
+      && gosu nobody true
+
 #add diy lib
 RUN set -x \
          #wget src
-        && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
-        && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
-        && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
-        && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
-        && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
-        && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
+         && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
+         && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
+         && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
         #install make deps
         && apt-get update && apt-get install -y gcc g++ make cmake autoconf libssl-dev  libcurl4-openssl-dev libxslt-dev libicu-dev  libxml2-dev libjpeg-dev libpng-dev libfreetype6-dev libsasl2-dev libevent-dev libpcre3-dev libgpgme11-dev pkg-config patch libgpgme11-dev && rm -rf /var/lib/apt/lists/* \
         #libiconv
