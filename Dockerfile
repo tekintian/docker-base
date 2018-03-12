@@ -20,7 +20,7 @@ WORKDIR /tmp
 RUN set -x \
         && sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
         && apt-get update \
-        && apt-get install -y wget gnupg dirmngr unzip bzip2 psmisc sendmail binutils ca-certificates openssl  curl libpcre3 libxml2 libfreetype6 --no-install-recommends \
+        && apt-get install -y wget gnupg dirmngr unzip bzip2 procps psmisc binutils ca-certificates openssl  curl libpcre3 libxml2 libfreetype6 sendmail --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* 
 # add gosu for easy step-down from root
 RUN set -x \
