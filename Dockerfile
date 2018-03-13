@@ -47,6 +47,7 @@ RUN set -x \
                 lua-curl \
                 libcurl3 \
                 libicu57 \
+                libgomp1 \
                 --no-install-recommends ' \
         && apt-get update \
         && apt-get install -y ${baseDeps} \
