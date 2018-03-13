@@ -64,12 +64,12 @@ RUN set -x \
 #add diy lib
 RUN set -x \
          #wget src
-         && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
-         && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
-         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
-         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
-         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
-         && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
+         # && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
+         # && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
+         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
+         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
+         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
+         # && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
         #install build deps
         && buildDeps='\
                 gcc \
