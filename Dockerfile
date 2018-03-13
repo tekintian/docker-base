@@ -33,43 +33,43 @@ RUN set -x \
                 dirmngr \
                 ca-certificates \
                 openssl \
+                libssl1.1 \
+                lua-luaossl \
                 curl \
                 libpcre3 \
                 libxml2 \
                 libfreetype6 \
                 libxslt1.1 \
+                libsasl2-2 \
+                libjpeg62-turbo \
+                libevent-core-2.0-5 \
+                libgpgme11 \
+                lua-curl \
+                libcurl3 \
+                libicu57 \
                 --no-install-recommends ' \
         && apt-get update \
         && apt-get install -y ${baseDeps} \
+        #fix the php-fpm libexslt.so.0 not find
+        && ln -s /usr/lib/x86_64-linux-gnu/libxslt.so.1 /usr/lib/libexslt.so.0 \
         && rm -rf /var/lib/apt/lists/* 
-# KEY服务器不稳定导致编译失败，暂时删除 GOSU 即可
 # add gosu for easy step-down from root
-# RUN set -x \
-#       && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-#       && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-#       && export GNUPGHOME="$(mktemp -d)" \
-#       && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-#       && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-#       && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-#       && chmod +x /usr/local/bin/gosu \
-#       && gosu nobody true
-
-# 去除签名验证，修复key服务器不稳定导致编译失败问题
+# 修复gnupg key服务器不稳定导致编译失败问题
 RUN set -x \
-      # && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-      && mv /tmp/gosu-$(dpkg --print-architecture) /usr/local/bin/gosu \
+      && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+      # && mv /tmp/gosu-$(dpkg --print-architecture) /usr/local/bin/gosu \
       && chmod +x /usr/local/bin/gosu \
       && gosu nobody true
 
 #add diy lib
 RUN set -x \
          #wget src
-         # && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
-         # && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
-         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
-         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
-         # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
-         # && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
+         && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
+         && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/${LIBMCRYPT_VERSION}/libmcrypt-${LIBMCRYPT_VERSION}.tar.gz \
+         && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mcrypt/MCrypt/${MCRYPT_VERSION}/mcrypt-${MCRYPT_VERSION}.tar.gz \
+         && wget -c --no-check-certificate https://github.com/jemalloc/jemalloc/releases/download/${JEMALLOC_VERSION}/jemalloc-${JEMALLOC_VERSION}.tar.bz2 \
         #install build deps
         && buildDeps='\
                 gcc \
@@ -91,7 +91,6 @@ RUN set -x \
                 libgpgme11-dev \
                 pkg-config \
                 patch \
-                libgpgme11-dev \
                 --no-install-recommends ' \
         && apt-get update && apt-get install -y ${buildDeps} && rm -rf /var/lib/apt/lists/* \
         #libiconv
@@ -141,6 +140,4 @@ RUN set -x \
         && apt-get purge -y --auto-remove ${buildDeps} \
         #将阿里的镜像换回默认镜像
         # && sed -i 's/mirrors.aliyun.com/deb.debian.org/g' /etc/apt/sources.list \
-        # 将已经删除了的软件包的.deb安装文件从硬盘中删除掉
-        && apt-get autoclean \
         && cd /tmp/  &&  rm -rf /tmp/*
