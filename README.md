@@ -1,17 +1,31 @@
 # Tekin 定制的精简容器基础包
 
-基于官方最新版 debian:9-slim 镜像定制
+基于官方最新版 debian:9-slim 镜像定制， 支持最新版PHP, TENGINE, NGINX编译安装。
 
-定制安装软件如下：
+内置系统运行库：wget, unzip, bzip2, procps, psmisc, binutils, tree, dpkg, gnupg, dirmngr, ca-certificates, openssl, libssl1.1, lua-luaossl, curl, libpcre3, libxml2, libfreetype6, libxslt1.1, libsasl2-2, libjpeg62-turbo, libevent-core-2.0-5, libgpgme11, lua-curl, libcurl3, libicu57, libgomp1 内置软件包：gosu 1.10， libiconv 1.15, curl 7.58.0, mhash 0.9.9.9, libmcrypt 2.5.8 2.6.8,  mcrypt 2.6.8, jemalloc 5.0.1 
 
-	http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-	https://curl.haxx.se/download/curl-7.58.0.tar.gz
-	http://downloads.sourceforge.net/project/mhash/mhash/0.9.9.9/mhash-0.9.9.9.tar.gz
-	http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz
-	http://downloads.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz
-	https://github.com/jemalloc/jemalloc/releases/download/5.0.1/jemalloc-5.0.1.tar.bz2
+
+## Change Logs
+
+TAG版本   |    更新内容    |   更新时间    |   备注
+---- | ---  |  --- |
+1.1  |  add libzip4 runtime | 2018年03月15日 |   新增最新版 PHP7.3 运行支持库文件  |
+1.0  |  初始版本 | 2018年03月13日 |   系统运行库：wget, unzip, bzip2, procps, psmisc, binutils, tree, dpkg, gnupg, dirmngr, ca-certificates, openssl, libssl1.1, lua-luaossl, curl, libpcre3, libxml2, libfreetype6, libxslt1.1, libsasl2-2, libjpeg62-turbo, libevent-core-2.0-5, libgpgme11, lua-curl, libcurl3, libicu57, libgomp1 最新软件包：libiconv 1.15, curl 7.58.0, mhash 0.9.9.9, libmcrypt 2.5.8 2.6.8,  mcrypt 2.6.8, jemalloc 5.0.1 gosu 1.10  |
 
 ***
+
+定制安装软件与下载地址：
+
+  http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+  https://curl.haxx.se/download/curl-7.58.0.tar.gz
+  http://downloads.sourceforge.net/project/mhash/mhash/0.9.9.9/mhash-0.9.9.9.tar.gz
+  http://downloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz
+  http://downloads.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz
+  https://github.com/jemalloc/jemalloc/releases/download/5.0.1/jemalloc-5.0.1.tar.bz2
+
+
+***
+
 
 ## 精简定制方法
 ***
