@@ -48,6 +48,7 @@ RUN set -x \
                 libcurl3 \
                 libicu57 \
                 libgomp1 \
+                libzip4 \
                 --no-install-recommends ' \
         && apt-get update \
         && apt-get install -y ${baseDeps} \
