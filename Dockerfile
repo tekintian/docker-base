@@ -7,7 +7,7 @@ RUN groupadd -r www && useradd -r -g www -M -s /sbin/nologin www
 
 ENV RUN_USER=www \
     LIBICONV_VERSION=1.15 \
-    CURL_VERSION=7.58.0 \
+    CURL_VERSION=7.59.0 \
     LIBMCRYPT_VERSION=2.5.8 \
     MHASH_VERSION=0.9.9.9 \
     MCRYPT_VERSION=2.6.8 \
