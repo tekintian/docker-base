@@ -48,10 +48,9 @@ RUN set -x \
                 libcurl3 \
                 libicu57 \
                 libgomp1 \
-                libzip4 \
-                --no-install-recommends ' \
+                libzip4 ' \
         && apt-get update \
-        && apt-get install -y ${baseDeps} \
+        && apt-get install -y --no-install-recommends  ${baseDeps} \
         #fix the php-fpm libexslt.so.0 not find
         && ln -s /usr/lib/x86_64-linux-gnu/libxslt.so.1 /usr/lib/libexslt.so.0 \
         && rm -rf /var/lib/apt/lists/* 
@@ -92,9 +91,8 @@ RUN set -x \
                 libpcre3-dev \
                 libgpgme11-dev \
                 pkg-config \
-                patch \
-                --no-install-recommends ' \
-        && apt-get update && apt-get install -y ${buildDeps} && rm -rf /var/lib/apt/lists/* \
+                patch ' \
+        && apt-get update && apt-get install -y --no-install-recommends ${buildDeps} && rm -rf /var/lib/apt/lists/* \
         #libiconv
         && tar xzf libiconv-${LIBICONV_VERSION}.tar.gz \
         && cd libiconv-${LIBICONV_VERSION}  \
