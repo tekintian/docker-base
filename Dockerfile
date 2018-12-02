@@ -6,13 +6,13 @@ MAINTAINER Tekin Tian <tekintian@gmail.com>
 RUN groupadd -r www && useradd -r -g www -M -s /sbin/nologin www
 
 ENV RUN_USER=www \
-    LIBICONV_VERSION=1.15 \
-    CURL_VERSION=7.59.0 \
+    GOSU_VERSION=1.11  \
+    CURL_VERSION=7.62.0 \
+    JEMALLOC_VERSION=5.1.0 \
     LIBMCRYPT_VERSION=2.5.8 \
     MHASH_VERSION=0.9.9.9 \
     MCRYPT_VERSION=2.6.8 \
-    JEMALLOC_VERSION=5.0.1 \
-    GOSU_VERSION=1.10
+    LIBICONV_VERSION=1.15
 
 WORKDIR /tmp
 
