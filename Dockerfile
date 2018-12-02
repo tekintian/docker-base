@@ -12,12 +12,14 @@ ENV RUN_USER=www \
     LIBMCRYPT_VERSION=2.5.8 \
     MHASH_VERSION=0.9.9.9 \
     MCRYPT_VERSION=2.6.8 \
+    RE2C_VERSION=1.1.1 \
     LIBICONV_VERSION=1.15
 
 WORKDIR /tmp
 
 ADD src/ /tmp/
 #安装必备的软件包
+# https://github.com/skvadrik/re2c/releases/download/1.1.1/re2c-1.1.1.tar.gz
 RUN set -x \
         && sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
         && baseDeps=' \
@@ -65,6 +67,8 @@ RUN set -x \
 #add diy lib
 RUN set -x \
          #wget src
+        # && wget -c --no-check-certificate https://github.com/skvadrik/re2c/releases/download/${RE2C_VERSION}/re2c-${RE2C_VERSION}.tar.gz  \
+        # && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
          # && wget -c --no-check-certificate http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${LIBICONV_VERSION}.tar.gz \
          # && wget -c --no-check-certificate https://curl.haxx.se/download/curl-${CURL_VERSION}.tar.gz \
          # && wget -c --no-check-certificate http://downloads.sourceforge.net/project/mhash/mhash/${MHASH_VERSION}/mhash-${MHASH_VERSION}.tar.gz \
@@ -93,6 +97,12 @@ RUN set -x \
                 pkg-config \
                 patch ' \
         && apt-get update && apt-get install -y --no-install-recommends ${buildDeps} && rm -rf /var/lib/apt/lists/* \
+        #RE2C 
+        && tar xzf re2c-1.1.1.tar.gz \
+        && cd re2c-${RE2C_VERSION}  \
+        &&  ./configure --prefix=/usr/local  \
+        && make && make install \
+        && cd /tmp/ \
         #libiconv
         && tar xzf libiconv-${LIBICONV_VERSION}.tar.gz \
         && cd libiconv-${LIBICONV_VERSION}  \
